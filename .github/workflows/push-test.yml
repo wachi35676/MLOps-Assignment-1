@@ -1,4 +1,4 @@
-name: CI
+name: Pull request to Test Branch
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 jobs:
 
   test:
-    name: Pull request Test
+    name: Pull Request to Test Branch
     runs-on: ubuntu-latest
 
     steps:
@@ -20,3 +20,4 @@ jobs:
         commit-message: "Automated PR from CI"
         title: "Automated PR from CI"
         branch: "test"
+        draft: true
