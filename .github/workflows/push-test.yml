@@ -1,23 +1,26 @@
-name: Pull request to Test Branch
-
+# This workflow is triggered on push events to the 'dev' branch
 on:
   push:
     branches:
       - dev
 
+name: Create Pull Request to Test Branch
+
 jobs:
 
-  test:
-    name: Pull Request to Test Branch
+  create-pull-request:
+    name: Create Pull Request to Test Branch
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v3
+      uses: repo-sync/pull-request@v2
       with:
-        token: ${{ secrets.TOKEN_GITHUB }}
-        commit-message: "Automated PR from CI"
-        title: "Automated PR from CI"
-        branch: "test"
-        draft: true
+        source_branch: "dev"
+        destination_branch: "test"
+        pr_title: "Pulling changes from dev to test"
+        pr_body: "Automatically created pull request to merge changes from dev to test"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
