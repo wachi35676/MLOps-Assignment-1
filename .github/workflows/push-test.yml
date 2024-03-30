@@ -1,7 +1,7 @@
 on:
-  pull_request:
+  push:
     branches:
-      - test
+      - dev
 
 name: Run Tests and Create Pull Request to Test Branch
 
