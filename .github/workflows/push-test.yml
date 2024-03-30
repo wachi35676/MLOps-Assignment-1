@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+
+  test:
+    name: Pull request Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{ secrets.TOKEN_GITHUB }}
+        commit-message: "Automated PR from CI"
+        title: "Automated PR from CI"
+        branch: "test"
