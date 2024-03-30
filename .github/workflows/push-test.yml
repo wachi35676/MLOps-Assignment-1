@@ -45,4 +45,4 @@ jobs:
         destination_branch: "test"
         pr_title: "Pulling changes from dev to test"
         pr_body: "Automatically created pull request to merge changes from dev to test"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
