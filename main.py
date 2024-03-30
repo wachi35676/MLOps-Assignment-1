@@ -1,9 +1,8 @@
-# **Online Food Analysis**
+# Online Food Analysis
 
 # Import necessary libraries
-import pandas as pd 
+import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 from scipy.stats import chi2_contingency
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
@@ -25,9 +24,9 @@ print(df.shape)  # Print the shape (rows, columns)
 print(df.describe())  # Print descriptive statistics
 print(df.columns)  # Print column names
 
-## **Market Segmentation Analysis:**
+# Market Segmentation Analysis:
 
-### What is the distribution of individuals across different age groups?
+# What is the distribution of individuals across different age groups?
 age_counts = df['Age'].value_counts().sort_index()
 
 plt.bar(age_counts.index, age_counts.values, color='green', edgecolor='black')
@@ -39,8 +38,11 @@ plt.gcf().patch.set_facecolor('skyblue')
 plt.gca().set_facecolor('yellow')
 plt.show()
 
-### How does marital status correlate with educational qualifications?
-contingency_table = pd.crosstab(df['Marital Status'], df['Educational Qualifications'])
+# How does marital status correlate with educational qualifications?
+contingency_table = pd.crosstab(
+    df['Marital Status'],
+    df['Educational Qualifications']
+)
 
 chi2, p, dof, expected = chi2_contingency(contingency_table)
 
@@ -50,9 +52,9 @@ print("Degrees of freedom:", dof)
 print("Expected frequencies table:")
 print(expected)
 
-## **Customer Behavior Analysis:**
+# Customer Behavior Analysis:
 
-### How does marital status affect monthly income?
+# How does marital status affect monthly income?
 print(pd.DataFrame(df.groupby('Monthly Income'))[0])
 
 # Convert monthly income categories to numeric values
@@ -64,13 +66,25 @@ df.loc[df['Monthly Income'] == 'No Income', 'Monthly Income'] = 0
 
 df['Monthly Income'] = df['Monthly Income'].astype(int)
 
-print(pd.DataFrame(df.groupby('Marital Status')['Monthly Income'].mean().sort_values(ascending=False)))
+print(
+    pd.DataFrame(
+        df.groupby('Marital Status')['Monthly Income'].mean().sort_values(
+            ascending=False
+        )
+    )
+)
 
-### Do students have any significant spending patterns or preferences compared to other occupation groups?
+# Do students have any significant spending patterns
+# or preferences compared to other occupation groups?
 income_pattern = df.groupby('Occupation')['Monthly Income'].mean()
 
-plt.figure(figsize=(6,4))
-plt.bar(income_pattern.index, income_pattern.values, color='lightpink', edgecolor='black')
+plt.figure(figsize=(6, 4))
+plt.bar(
+    income_pattern.index,
+    income_pattern.values,
+    color='lightpink',
+    edgecolor='black'
+)
 plt.title('Income Patterns')
 plt.xlabel('Occupation')
 plt.ylabel('Income')
@@ -80,11 +94,16 @@ plt.gcf().patch.set_facecolor('lightgreen')
 plt.gca().set_facecolor('lightblue')
 plt.show()
 
-## **Predictive Analysis**
+# Predictive Analysis
 print(df.head())
 
 # Split the data into train and test sets
-X_train, X_test, y_train, y_test = train_test_split(df.drop(columns='Monthly Income'), df['Monthly Income'], test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    df.drop(columns='Monthly Income'),
+    df['Monthly Income'],
+    test_size=0.2,
+    random_state=42
+)
 
 print(pd.DataFrame(X_train).head())
 print(X_train.shape)
