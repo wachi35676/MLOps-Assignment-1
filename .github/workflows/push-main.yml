@@ -23,19 +23,3 @@ jobs:
         pr_title: "Pulling changes from test to main"
         pr_body: "Automatically created pull request to merge changes from test to main"
         github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
-  send-email:
-    name: Send Email
-    runs-on: ubuntu-latest
-    needs: create-pull-request
-
-    steps:
-    - uses: codebrane/mailsend-action@v2.2.0
-      with:
-        to: your-email@example.com
-        from: GitHub Actions
-        subject: Workflow completed
-        message: The workflow ${{ github.workflow }} in repository ${{ github.repository }} has completed.
-        smtp_server: smtp.gmail.com
-        smtp_port: 587
-        smtp_user: ${{ secrets.GMAIL_CREDENTIALS }}
