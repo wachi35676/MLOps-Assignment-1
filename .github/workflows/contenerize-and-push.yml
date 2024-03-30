@@ -1,0 +1,29 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build Docker Image
+      run: |
+        docker build -t my-image .
+        docker tag my-image wachi35676/my-image
+
+    - name: Docker Login
+      env:
+        DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      run: |
+        echo "${DOCKER_HUB_ACCESS_TOKEN}" | docker login -u wachi35676 --password-stdin
+
+    - name: Push Docker Image
+      run: |
+        docker push wachi35676/my-image

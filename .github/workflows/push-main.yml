@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+      - test
+
+name: Run Tests and Create Pull Request to Main Branch
+
+jobs:
+
+  create-pull-request:
+    name: Create Pull Request to Main Branch
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Create Pull Request
+      uses: repo-sync/pull-request@v2
+      with:
+        source_branch: "test"
+        destination_branch: "main"
+        pr_title: "Pulling changes from test to main"
+        pr_body: "Automatically created pull request to merge changes from test to main"
+        github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
