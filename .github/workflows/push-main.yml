@@ -3,7 +3,7 @@ on:
     branches:
       - test
 
-name: Run Tests and Create Pull Request to Main Branch
+name: Create Pull Request to Main Branch
 
 jobs:
 
